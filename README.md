@@ -25,6 +25,8 @@ npm run build
 
 ## 部分截图
 
-(https://github.com/NewsNIng/vue-h5plus/raw/master/other/1.jpg)
-(https://github.com/NewsNIng/vue-h5plus/raw/master/other/2.jpg)
-(https://github.com/NewsNIng/vue-h5plus/raw/master/other/3.jpg)
+![主页](https://github.com/NewsNIng/vue-h5plus/raw/master/other/1.jpg)
+
+![侧栏](https://github.com/NewsNIng/vue-h5plus/raw/master/other/2.jpg)
+
+![其它](https://github.com/NewsNIng/vue-h5plus/raw/master/other/3.jpg)
