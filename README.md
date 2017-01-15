@@ -2,7 +2,10 @@
 
 > A Vue + H5Plus project
 
-## Build Setup
+使用UI : [Muse-UI](https://museui.github.io/) 基于 Vue 2.0 和 Material Desigin 的 UI 组件库
+真机调试 : [HBuilder](http://www.dcloud.io/) HBuilder-飞速编码的极客工具
+
+## 开始
 
 ``` bash
 # 安装依赖
@@ -20,3 +23,8 @@ npm run build
 ## 设置起始页为 module/index.html 真机调试
 ```
 
+## 部分截图
+
+(https://github.com/NewsNIng/vue-h5plus/raw/master/other/1.jpg)
+(https://github.com/NewsNIng/vue-h5plus/raw/master/other/2.jpg)
+(https://github.com/NewsNIng/vue-h5plus/raw/master/other/3.jpg)
