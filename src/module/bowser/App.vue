@@ -73,8 +73,8 @@
     position: absolute !important;
     left: 0;
     top: 0;
-    /*height: 4px !important;*/
-    background-color: rgba(255,255,255,.4) !important;
+    height: 2px !important;
+    background-color: rgba(255,255,255,.35) !important;
   }
 
 </style>

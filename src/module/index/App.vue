@@ -2,6 +2,9 @@
   <div>
     <mu-appbar :title="tabs[activeIndex].title">
       <mu-icon-button icon='menu' slot="left" @click='menu' />
+
+      <mu-icon-button icon='search' slot="right" />
+      <mu-icon-button icon='add' slot="right" />
     </mu-appbar>
 
     <mu-paper>
@@ -26,18 +29,18 @@
         activeIndex: 0,
         tabs: [
           {
-            title: '主页',
-            icon: 'home',
+            title: '前端',
+            icon: 'touch_app',
             src: 'home.html'
           },
           {
-            title: '游戏',
-            icon: 'videogame_asset',
+            title: '盒子',
+            icon: 'loupe',
             src: 'box.html'
           },
           {
             title: '我的',
-            icon: 'phone',
+            icon: 'account_box',
             src: 'person.html'
           }
         ],
