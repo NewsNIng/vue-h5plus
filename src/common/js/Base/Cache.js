@@ -2,7 +2,9 @@
 
 class CacheBase {
 
-    constructor(cacheKey = '__this_is_cache__', plus = false) {
+    constructor(cacheKey = '__this_is_cache__',{
+         plus = false,
+    } = {}) {
         this.key = cacheKey
         this.plus = plus
     }

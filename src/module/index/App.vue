@@ -29,13 +29,13 @@
         activeIndex: 0,
         tabs: [
           {
-            title: '前端',
-            icon: 'touch_app',
+            title: '主页',
+            icon: 'home',
             src: 'home.html'
           },
           {
             title: '盒子',
-            icon: 'loupe',
+            icon: 'touch_app',
             src: 'box.html'
           },
           {

@@ -1,9 +1,10 @@
 <template>
   <div>
-    <mu-select-field  fullWidth v-model="game1" :labelFocusClass="['label-foucs']" label="选择你喜欢的游戏">
+    <mu-select-field fullWidth v-model="game1" :labelFocusClass="['label-foucs']" label="选择你喜欢的游戏">
       <mu-menu-item v-for="text,index in list" ccc="dddd" ttt="ddd" :value="String(index)" :title="text" />
     </mu-select-field>
     <mu-time-picker fullWidth hintText="嗨到最晚的时间" format="24hr" /><br/>
+    <mu-raised-button label="点击跟女友聊天" class="demo-raised-button" @click='chatClick()' />
   </div>
 </template>
 <script>
@@ -30,8 +31,15 @@
       plusReady(this.plusReady)
     },
     methods: {
-      plusReady(){
+      plusReady() {
 
+      },
+      chatClick() {
+        let page = 'robot.html',
+          ow = plus.webview.create(page, page, {
+            popGesture: 'close'
+          })
+        ow.show('pop-in', 250)
       }
     },
 
