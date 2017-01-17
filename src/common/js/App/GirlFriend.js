@@ -41,7 +41,11 @@ class GirlFriend extends Robot {
           //记录我自己的话
         this.appendMemory(msg)
         re(msg)
-      }).catch(rj)
+      }).catch(err => {
+        let errmsg = this._loadMsg('糟了! 我可能有个假脑子, 一下子处理不过来.', true)
+        this.appendMemory(errmsg)
+        rj(errmsg)
+      })
     })
 
   }
@@ -55,6 +59,9 @@ class GirlFriend extends Robot {
   // 追加记忆
   appendMemory(_data = {}) {
     this.memorydata.push(_data)
+    if(this.memorydata.length >= 500){
+      this.memorydata = this.memorydata.splice(-50)
+    }
     _Memory.get(this).data = this.memorydata
     
   }

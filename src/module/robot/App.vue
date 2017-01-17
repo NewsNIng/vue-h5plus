@@ -14,14 +14,13 @@
       </mu-flexbox>
     </div>
     <div class="chatList">
-      <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="down"/>
+      <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="down" />
       <mu-list>
         <template v-for='o,i of list'>
           <!--<mu-sub-header></mu-sub-header>-->
-          <mu-list-item :title="o.from + _time2time(o.time)" :style="{'text-align': o.isMe?'left':'right'}" >
-            <mu-avatar :src="o.isMe?robotInfo.avatar:masterInfo.avatar" :slot="o.isMe?'leftAvatar':'rightAvatar'"
-            />
-            
+          <mu-list-item :title="o.from + _time2time(o.time)" :style="{'text-align': o.isMe?'left':'right'}">
+            <mu-avatar :src="o.isMe?robotInfo.avatar:masterInfo.avatar" :slot="o.isMe?'leftAvatar':'rightAvatar'" />
+
             <span slot="describe">
               
               {{o.message}}
@@ -50,7 +49,7 @@
   export default {
     data() {
       return {
-        robotInfo:{
+        robotInfo: {
           name: '楠の幸子',
           avatar: 'https://sfault-avatar.b0.upaiyun.com/422/013/4220137036-586deaee61646_huge256'
         },
@@ -71,7 +70,8 @@
       domReady(this.ready)
       plusReady(this.plusReady)
     },
-    mounted(){
+    mounted() {
+      this.room = document.querySelector('.chatList')
       this.trigger = this.$el
     },
     methods: {
@@ -83,12 +83,15 @@
 
         //new 一个女朋友...
         this.gf = new GF(this.robotInfo.name)
-          //设置她称呼的方式 
+        //设置她称呼的方式 
         this.gf.setMaster(this.masterInfo.name)
+
+
+        if (!this.gf.memorydata.length) {
           //哈哈叫哥哥
-        this.callMsg(this.gf.sayHello())
-          //先看看她以前跟我说过啥哟
-          
+          this.callMsg(this.gf.sayHello())
+        }
+        //先看看她以前跟我说过啥哟
         this.list.push(...(this.gf.getMemory().splice(-10)))
 
       },
@@ -101,16 +104,17 @@
         }
         this.callMsg(this.gf._loadMsg(this.val))
         this.gf.sendQuestion(this.val).then(this.callMsg)
-          .catch(err => {
-            this.callMsg(this.gf.sayHello())
-          })
+          .catch(this.callMsg)
         this.val = ''
       },
       callMsg(_data) {
 
         this.list.push(_data)
+        setTimeout(() => {
+          this.room.scrollTop = this.room.scrollHeight
+        }, 0)
       },
-      down(){
+      down() {
         this.refreshing = true
         setTimeout(() => {
           this.refreshing = false
@@ -119,7 +123,7 @@
       _time2time(time) {
         return new Date(time).toFormatString('[ hh:mm ]')
       },
-      close(){
+      close() {
         this.cw.close()
       }
     }
