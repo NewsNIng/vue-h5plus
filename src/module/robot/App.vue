@@ -8,7 +8,7 @@
         <mu-flexbox-item grow='8'>
           <mu-text-field :fullWidth='true' v-model='val' :hintText="tip" />
         </mu-flexbox-item>
-        <mu-flexbox-item>
+        <mu-flexbox-item style="text-align: center">
           <mu-float-button icon="send" :mini='true' class="demo-right-button" @click='sendMsg()' />
         </mu-flexbox-item>
       </mu-flexbox>
@@ -72,7 +72,11 @@
     },
     mounted() {
       this.room = document.querySelector('.chatList')
+      this.input = document.querySelector('input')
       this.trigger = this.$el
+      this.input.onfocus = ()=>{
+        this._chat2down(500)
+      }
     },
     methods: {
       ready() {
@@ -104,6 +108,10 @@
       },
       plusReady() {
         this.cw = plus.webview.currentWebview()
+        //设置键盘弹出webview的样式
+        // this.cw.setStyle({
+        //   softinputMode: 'adjustResize'
+        // })
       },
       sendMsg() {
         if (!this.val.trim()) {
@@ -119,20 +127,20 @@
         this._chat2down()
         this.lastTime = new Date().getTime()
       },
-
       down() {
         this.refreshing = true
         setTimeout(() => {
           this.refreshing = false
         }, 2000)
       },
-      _time2time(time) {
-        return new Date(time).toFormatString('[ hh:mm ]')
-      },
-      _chat2down(){
+      _chat2down(time = 0){
         setTimeout(() => {
           this.room.scrollTop = this.room.scrollHeight
-        }, 0)
+        }, time)
+      },
+      onFocus(){
+        alert(0)
+        this._chat2down()
       },
       close() {
         this.cw.close()

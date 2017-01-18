@@ -2,11 +2,9 @@
   <div>
     <mu-appbar :title="tabs[activeIndex].title">
       <mu-icon-button icon='menu' slot="left" @click='menu' />
-
-      <mu-icon-button icon='search' slot="right" />
-      <mu-icon-button icon='add' slot="right" />
+      <mu-icon-button icon='music' slot="right" />
     </mu-appbar>
-
+    
     <mu-paper>
       <mu-bottom-nav :value="activeIndex" shift @change="handleTabChange">
         <mu-bottom-nav-item v-for='t,i of tabs' :value='i' :icon="t.icon" :title='t.title' />

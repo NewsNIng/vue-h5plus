@@ -29,7 +29,7 @@
         default: ''
       },
       time: {
-        type: Date,
+        type: Number,
         default: new Date().getTime()
       },
       self: {
@@ -89,8 +89,7 @@
   }*/
   
   .avatar {
-    width: 100%;
-    background-color: red;
+    
   }
   
   .time {

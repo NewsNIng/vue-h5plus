@@ -75,7 +75,10 @@
               url: item.href,
               title: item.title
             })
-        ow.show('pop-in', 250)
+          ow.onloading = () => {
+            ow.show('pop-in', 250)
+          }
+        
       },
       getNetData(isDwon) {
         // let data = [{

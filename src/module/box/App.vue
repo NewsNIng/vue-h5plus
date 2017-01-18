@@ -39,7 +39,10 @@
           ow = plus.webview.create(page, page, {
             popGesture: 'close'
           })
-        ow.show('pop-in', 250)
+          ow.onloading = () =>{
+            ow.show('pop-in', 250)
+          }
+        
       }
     },
 
