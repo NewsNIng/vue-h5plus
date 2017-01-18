@@ -17,22 +17,19 @@
       <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="down" />
       <mu-list>
         <template v-for='o,i of list'>
-          <!--<mu-sub-header></mu-sub-header>-->
+          <chat-item :avatar='o.isMe?robotInfo.avatar:masterInfo.avatar' :content='o.message' :self='!o.isMe' :time='o.time' :showTime='true'></chat-item>
+        </template>
+        
+
+        <!--<template v-for='o,i of list'>
           <mu-list-item :title="o.from + _time2time(o.time)" :style="{'text-align': o.isMe?'left':'right'}">
             <mu-avatar :src="o.isMe?robotInfo.avatar:masterInfo.avatar" :slot="o.isMe?'leftAvatar':'rightAvatar'" />
-
             <span slot="describe">
-              
               {{o.message}}
             </span>
-            <!--<mu-icon-menu slot="right" icon="more_vert" tooltip="操作">
-                <mu-menu-item title="回复" />
-                <mu-menu-item title="标记" />
-                <mu-menu-item title="删除" />
-              </mu-icon-menu>-->
           </mu-list-item>
           <mu-divider inset/>
-        </template>
+        </template>-->
       </mu-list>
     </div>
   </div>
@@ -45,6 +42,8 @@
 
   import GF from 'common/js/App/GirlFriend.js'
   import Cache from 'common/js/Base/Cache.js'
+
+  import chatItem from 'components/Chat/item.vue'
 
   export default {
     data() {
@@ -60,6 +59,7 @@
         list: [],
         val: '',
         tip: '说点什么吧~',
+        lastTime: 0,
 
 
         refreshing: false,
@@ -81,19 +81,26 @@
 
 
 
-        //new 一个女朋友...
+        // new 一个女朋友...
         this.gf = new GF(this.robotInfo.name)
-        //设置她称呼的方式 
+        
+        // 设置她称呼的方式 
         this.gf.setMaster(this.masterInfo.name)
 
-
-        if (!this.gf.memorydata.length) {
-          //哈哈叫哥哥
+        // 先看看她以前跟我说过啥哟
+        let memorydata = this.gf.getMemory()
+        // 如果以前没跟她说过话 那就让她主动给我打招呼
+        if (!memorydata.length) {
+          // 哈哈叫哥哥
           this.callMsg(this.gf.sayHello())
+        }else{
+          // 有说过话就显示最近10条 
+          this.list.push(...(memorydata.slice(-10)))
+          // 并且滚动到底部
+          this._chat2down()
         }
-        //先看看她以前跟我说过啥哟
-        this.list.push(...(this.gf.getMemory().splice(-10)))
-
+        
+        
       },
       plusReady() {
         this.cw = plus.webview.currentWebview()
@@ -108,12 +115,11 @@
         this.val = ''
       },
       callMsg(_data) {
-
         this.list.push(_data)
-        setTimeout(() => {
-          this.room.scrollTop = this.room.scrollHeight
-        }, 0)
+        this._chat2down()
+        this.lastTime = new Date().getTime()
       },
+
       down() {
         this.refreshing = true
         setTimeout(() => {
@@ -123,9 +129,17 @@
       _time2time(time) {
         return new Date(time).toFormatString('[ hh:mm ]')
       },
+      _chat2down(){
+        setTimeout(() => {
+          this.room.scrollTop = this.room.scrollHeight
+        }, 0)
+      },
       close() {
         this.cw.close()
       }
+    },
+    components:{
+      chatItem
     }
 
   }

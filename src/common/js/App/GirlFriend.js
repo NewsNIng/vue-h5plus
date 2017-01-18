@@ -14,21 +14,18 @@ class GirlFriend extends Robot {
     super(name)
       // 记忆初始化
     _Memory.set(this,new Cache('__Memory_' + this.nickName + '__'))
-    if(!_Memory.get(this).data || _Memory.get(this).data.length === 0){
+    this.memorydata = _Memory.get(this).data
+    if(!this.memorydata){
+        this.memorydata = []
         _Memory.get(this).data = []   
     }
-    this.memorydata = _Memory.get(this).data
+    
   }
 
   sayHello() {
-    return {
-      from: this.nickName,
-      to: this.masterName,
-      isMe: true,
-      message: `${this.masterName}~, 我是${this.nickName}, 以后请多多关照哦~`,
-      time: new Date().getTime()
-    }
-
+    let msg = this._loadMsg(`${this.masterName}~, 我是${this.nickName}, 以后请多多关照哦~`, true)
+    this.appendMemory(msg)
+    return msg
   }
 
 
@@ -53,17 +50,17 @@ class GirlFriend extends Robot {
 
   // 获取记忆
   getMemory() {
-    return _Memory.get(this).data
+    return this.memorydata
   }
 
   // 追加记忆
   appendMemory(_data = {}) {
     this.memorydata.push(_data)
-    if(this.memorydata.length >= 500){
-      this.memorydata = this.memorydata.splice(-50)
+    if(this.memorydata.length >= 100){
+      console.log('.............100')
+      this.memorydata = this.memorydata.splice(-100)
     }
     _Memory.get(this).data = this.memorydata
-    
   }
 
   // 处理信息

@@ -89,7 +89,7 @@
         this.index++
       },
       onHide() {
-        new Broadcast().send('_hideMenu', {}, { ids: ['index.html', 'HBuilder', 'YunMui'] })
+        new Broadcast().send('_hideMenu', {}, { ids: [plus.runtime.appid] })
       },
       onClose(){
         plus.runtime.quit()
