@@ -4,7 +4,7 @@
       <mu-icon-button icon='menu' slot="left" @click='menu' />
       <mu-icon-button icon='music' slot="right" />
     </mu-appbar>
-    
+
     <mu-paper>
       <mu-bottom-nav :value="activeIndex" shift @change="handleTabChange">
         <mu-bottom-nav-item v-for='t,i of tabs' :value='i' :icon="t.icon" :title='t.title' />
@@ -20,6 +20,7 @@
   } from 'common/js/ning/index.js'
 
   import Broadcast from 'common/js/ning/Broadcast.js'
+  import webviewGroup from 'common/js/ning/WebviewGroup.js'
 
   export default {
     data() {
@@ -54,18 +55,36 @@
     },
     created() {
       plusReady(this.plusReady)
-      new Broadcast().listen('_hideMenu',(e)=>{
+      new Broadcast().listen('_hideMenu', (e) => {
         this.isShow = false
       })
     },
     methods: {
       plusReady() {
         this.cw = plus.webview.currentWebview()
-        //默认载入
-        this.showSubPage(this.activeIndex)
-        //侧滑初始化
-        this.menuInit()
+        let that = this
         
+        let items = []
+        for(let i in this.tabs){
+          items.push({
+            id: this.tabs[i].src,
+            url: this.tabs[i].src,
+            extras: {},
+            styles: this.style
+          })
+        }
+        this.group = new webviewGroup(this.cw.id, {
+          items,
+          onChange(obj) {
+            that.activeIndex = obj.index
+          }
+        })
+
+        //默认载入
+        //this.showSubPage(this.activeIndex)
+        // 侧滑初始化
+        this.menuInit()
+
       },
       //左上角菜单
       menu() {
@@ -116,15 +135,17 @@
           }
         })
         this.cw.setStyle({ mask: "none" })
-        setTimeout(() =>{
-					this.menuPage.hide()
-				}, 200);
+        setTimeout(() => {
+          this.menuPage.hide()
+        }, 200);
       },
 
       handleTabChange(index) {
+        this.activeIndex = index
+        return this.group.switchTab(this.tabs[index].src)
         this.showSubPage(index)
         this.hideSubPage()
-        this.activeIndex = index
+        
       },
       showSubPage(index = 0) {
         let id = this.tabs[index].src,
@@ -156,9 +177,11 @@
       }
     }
   }
+
 </script>
 <style scoped>
-  .mu-tabs,.mu-paper{
+  .mu-tabs,
+  .mu-paper {
     width: 100%;
     position: fixed;
     bottom: 0;
