@@ -1,13 +1,98 @@
-let webviewGroup = function () {
+
+let webviewGroup = (function () {
+
+  class WebviewGroupContext {
+
+    constructor(id, webviewOptions, groupContext) {
+      this.id = id
+      this.url = webviewOptions.url
+      this.options = webviewOptions
+      this.groupContext = groupContext
+
+      this.webview = false
+      this.inited = false
+    }
+
+    // 创建一个新的webview
+    createWebview(from) {
+      let options = this.options
+
+      options.styles = options.styles || {
+        top: "83px",
+        bottom: "0px",
+        render: "always"
+      }
+      options.styles.popGesture = 'none'
+      if (this.webview) {
+        this.webview.setStyle(options.styles)
+        for (let key in options.extras) {
+          this.webview[key] = options.extras[key]
+        }
+      } else {
+        options.styles.left = '100%'
+        if (from !== 'startAnimation') {
+          options.styles.left = '0'
+          plus.nativeUI.showWaiting()
+        }
+        this.webview = plus.webview.create(this.url, this.id, options.styles, options.extras)
+          //append进去，避免返回时闪屏
+        plus.webview.currentWebview().append(this.webview)
+      }
+      this._initWebview()
+      this.inited = true
+    }
+
+    // 初始化webview
+    _initWebview() {
+      let options = this.options
+      if (!this.webview) {
+        return
+      }
+      this.webview.addEventListener('rendering', function () {
+        setTimeout(function () {
+          plus.nativeUI.closeWaiting()
+        }, 500)
+      })
+      if (options.pullToRefresh && options.pullToRefresh.support && support.pullToRefresh()) {
+        var callback = options.pullToRefresh.callback
+        this.webview.setPullToRefresh(options.pullToRefresh, () => {
+          if (callback) { //如果指定了下拉回调
+            callback(this.webview)
+          } else { //下拉刷新回调，默认reload当前页面
+            let titleUpdate = function () {
+              setTimeout(() => {
+                this.webview.endPullToRefresh()
+              }, 1000)
+              this.webview.removeEventListener('titleUpdate', titleUpdate);
+            };
+            this.webview.addEventListener('titleUpdate', titleUpdate)
+            this.webview.reload()
+          }
+        })
+      }
+    }
+
+  }
+
   class WebviewGroup {
-    constructor(id, options = {
-      items: [],
-      index: 0,
-      styles: {},
-      onChange() {}
+
+    constructor(id, {
+      items = [],
+      index = 0,
+      styles = {},
+      onChange = () => {}
     }) {
       this.id = id
-      this.options = options
+      this.options = {
+        items,
+        index,
+        styles,
+        onChange
+      }
+      this.styles = styles;
+      this.items = items;
+      this.onChange = onChange
+
       this.webviews = {}
       this.webviewContexts = {}
       this.currentWebview = false
@@ -35,7 +120,7 @@ let webviewGroup = function () {
     _initNativeView() {
       this.nativeView = new plus.nativeObj.View('__W2A_TAB_NATIVE', {
         'top': '56px',
-        'bottom': "0px",
+        //'bottom': "0px",//原生 view bottom 属性无效
         'left': '100%',
         'width': '100%',
         'backgroudColor': '#ffffff',
@@ -45,7 +130,7 @@ let webviewGroup = function () {
     }
 
     // 初始化子页
-    _initWebviewContexts = function () {
+    _initWebviewContexts() {
       for (let len = this.items.length, i = len - 1; i >= 0; i--) {
         let webviewOptions = this.items[i],
           id = webviewOptions.id,
@@ -117,13 +202,13 @@ let webviewGroup = function () {
       this._initDrag(webview, 'right')
     }
 
-
     _onChange(webview) {
       this.currentWebview = webview;
       this.onChange({
         index: webview.__wap2app_index
       })
     }
+
     _dragCallback(dir, fromWebview, view, viewId) {
       if (view === this.nativeView) { //需要创建webview
         //第一步:初始化目标webview
@@ -163,12 +248,14 @@ let webviewGroup = function () {
     getCurrentWebview() {
       return this.currentWebview
     }
+
     getCurrentWebviewContext() {
       if (this.currentWebview) {
         return this.webviewContexts[this.currentWebview.id]
       }
       return false
     }
+
     switchTab(id) {
       id = id.replace('_0', '') //首页需要替换为appid
       let fromWebview = this.currentWebview
@@ -229,78 +316,12 @@ let webviewGroup = function () {
 
   }
 
-  class WebviewGroupContext {
-    constructor(id, webviewOptions, groupContext) {
-      this.id = id
-      this.url = webviewOptions.url
-      this.options = webviewOptions
-      this.groupContext = groupContext
 
-      this.webview = false
-      this.inited = false
-    }
-
-    // 创建一个新的webview
-    createWebview() {
-      let options = this.options
-
-      options.styles = options.styles || {
-        top: "83px",
-        bottom: "0px",
-        render: "always"
-      }
-      options.styles.popGesture = 'none'
-      if (this.webview) {
-        this.webview.setStyle(options.styles)
-        for (let key in options.extras) {
-          this.webview[key] = options.extras[key]
-        }
-      } else {
-        options.styles.left = '100%'
-        if (from !== 'startAnimation') {
-          options.styles.left = '0'
-          plus.nativeUI.showWaiting()
-        }
-        this.webview = plus.webview.create(this.url, this.id, options.styles, options.extras)
-          //append进去，避免返回时闪屏
-        plus.webview.currentWebview().append(this.webview)
-      }
-      this._initWebview()
-      this.inited = true
-    }
-
-    // 初始化webview
-    _initWebview() {
-      let options = this.options
-      if (!this.webview) {
-        return
-      }
-      this.webview.addEventListener('rendering', function () {
-        setTimeout(function () {
-          plus.nativeUI.closeWaiting()
-        }, 500)
-      })
-      if (options.pullToRefresh && options.pullToRefresh.support && support.pullToRefresh()) {
-        var callback = options.pullToRefresh.callback
-        this.webview.setPullToRefresh(options.pullToRefresh, () => {
-          if (callback) { //如果指定了下拉回调
-            callback(this.webview)
-          } else { //下拉刷新回调，默认reload当前页面
-            let titleUpdate = function () {
-              setTimeout(() => {
-                this.webview.endPullToRefresh()
-              }, 1000)
-              this.webview.removeEventListener('titleUpdate', titleUpdate);
-            };
-            this.webview.addEventListener('titleUpdate', titleUpdate)
-            this.webview.reload()
-          }
-        })
-      }
-    }
-
-  }
 
   return WebviewGroup
-}
+
+
+})()
+
+
 module.exports = webviewGroup
