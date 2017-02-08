@@ -5,6 +5,7 @@
     </mu-select-field>
     <mu-time-picker fullWidth hintText="嗨到最晚的时间" format="24hr" /><br/>
     <mu-raised-button label="点击跟女友聊天" class="demo-raised-button" @click='chatClick()' />
+    <mu-raised-button label="朋友圈" @click='shareClick()' />
   </div>
 </template>
 <script>
@@ -39,10 +40,20 @@
           ow = plus.webview.create(page, page, {
             popGesture: 'close'
           })
-          ow.onloading = () =>{
-            ow.show('pop-in', 250)
-          }
-        
+        ow.onloading = () => {
+          ow.show('pop-in', 250)
+        }
+
+      },
+      shareClick() {
+        let url = 'share.html',
+          w = plus.webview.create(url, url, {
+            popGesture: 'close'
+          })
+        w.addEventListener('titleUpdate', () => {
+          w.show('pop-in', 250)
+        })
+
       }
     },
 

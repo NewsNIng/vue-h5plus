@@ -26,7 +26,7 @@ class Back {
             if (e.canBack) {
                 window.history.back()
             } else {
-                if (this.wobj.id === plus.runtime.appid || doubleBacks.findIndex(v => {v===this.wobj.id})) {
+                if (this.wobj.id === plus.runtime.appid || ~doubleBacks.indexOf(this.wobj.id)) {
                     
                     if (!this.__back__first) {
                         this.__back__first = new Date().getTime()

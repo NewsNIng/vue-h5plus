@@ -14,7 +14,7 @@
     </mu-card>
 
     <mu-menu class="demo-menu-divider">
-      <mu-menu-item title="登录" leftIcon="account_circle" @click='onClick'/>
+      <!--<mu-menu-item title="注销" leftIcon="account_circle" @click='onClick'/>-->
       <mu-divider />
       <mu-menu-item title="设置" leftIcon="settings" @click='onSetting'/>
       <mu-divider />
@@ -102,7 +102,7 @@
         this.index++
       },
       onHide() {
-        new Broadcast().send('_hideMenu', {}, { ids: [plus.runtime.appid] })
+        new Broadcast().send('_hideMenu', {}, { ids: ['index.html'] })
       },
       onClose(){
         plus.runtime.quit()

@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar :title="tabs[activeIndex].title">
-      <mu-icon-button icon='menu' slot="left" @click='menu' />
+      <!--<mu-icon-button icon='menu' slot="left" @click='menu' />-->
       <mu-icon-button icon='music' slot="right" />
     </mu-appbar>
 
@@ -40,7 +40,7 @@
           {
             title: '我的',
             icon: 'account_box',
-            src: 'person.html'
+            src: 'menu.html'
           }
         ],
         style: {
@@ -83,7 +83,7 @@
         //默认载入
         //this.showSubPage(this.activeIndex)
         // 侧滑初始化
-        this.menuInit()
+        //this.menuInit()
 
       },
       //左上角菜单
