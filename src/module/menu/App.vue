@@ -14,6 +14,8 @@
     </mu-card>
 
     <mu-menu class="demo-menu-divider">
+      <mu-menu-item title="登录" leftIcon="account_circle" @click='onClick'/>
+      <mu-divider />
       <mu-menu-item title="设置" leftIcon="settings" @click='onSetting'/>
       <mu-divider />
       <mu-menu-item title="换肤" leftIcon="remove_red_eye" @click='onThemeClick' />
@@ -83,7 +85,18 @@
     },
     methods: {
       plusReady() {
+        this.cw = plus.webview.currentWebview()
         new Back(this.onHide).addKeyListener()
+      },
+      onClick(){
+        let url = 'login.html',
+        w = plus.webview.create(url,url)
+        this.cw.setStyle({left:'-70%'})
+        w.onloaded = () =>{
+          this.onHide()
+        }
+        w.show('pop-in',250)
+        
       },
       onThemeClick() {
         this.index++

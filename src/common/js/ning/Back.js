@@ -1,6 +1,7 @@
 import Broadcast from './Broadcast.js'
 //引入一份自动处理返回的名单
-import noBacks from '../data/noBacks.js'
+import {noBacks,doubleBacks} from '../data/noBacks.js'
+
 class Back {
     constructor(_fn = () => true) {
         this.callback = ()=>{
@@ -25,7 +26,7 @@ class Back {
             if (e.canBack) {
                 window.history.back()
             } else {
-                if (this.wobj.id === plus.runtime.appid) {
+                if (this.wobj.id === plus.runtime.appid || doubleBacks.findIndex(v => {v===this.wobj.id})) {
                     
                     if (!this.__back__first) {
                         this.__back__first = new Date().getTime()

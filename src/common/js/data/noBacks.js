@@ -1,6 +1,13 @@
 //不监听返回事件页面id
-let arr = [
+let noBacks = [
     'menu.html'
+],
+doubleBacks = [
+    'index.html',
+    'login.html'
 ]
 
-module.exports = arr
+module.exports = {
+    noBacks,
+    doubleBacks
+}
