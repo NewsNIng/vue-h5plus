@@ -33,9 +33,9 @@
             src: 'home.html'
           },
           {
-            title: '盒子',
+            title: '音乐',
             icon: 'touch_app',
-            src: 'box.html'
+            src: 'music.html'
           },
           {
             title: '我的',
@@ -69,7 +69,7 @@
           items.push({
             id: this.tabs[i].src,
             url: this.tabs[i].src,
-            extras: {},
+            extras: {bounce: 'vertical'},
             styles: this.style
           })
         }

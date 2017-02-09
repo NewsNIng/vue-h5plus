@@ -4,8 +4,8 @@ module.exports = {
         feture: 'https://op.juhe.cn/robot/index'
     },
     AVC: {
-        appId: 'vRpwMXNy6WhPtAPjTU6Mt45L-gzGzoHsz',
-        appKey: '5jsA6x00AvqEqPqmsfwh5AwF'
+        appId: '',
+        appKey: ''
     }
 
 

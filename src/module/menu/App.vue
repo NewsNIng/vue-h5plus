@@ -16,14 +16,14 @@
     <mu-menu class="demo-menu-divider">
       <!--<mu-menu-item title="注销" leftIcon="account_circle" @click='onClick'/>-->
       <mu-divider />
-      <mu-menu-item title="设置" leftIcon="settings" @click='onSetting'/>
+      <mu-menu-item title="调戏女朋友" leftIcon="settings" @click='onSetting' />
       <mu-divider />
       <mu-menu-item title="换肤" leftIcon="remove_red_eye" @click='onThemeClick' />
       <mu-divider />
-      <mu-menu-item title="退出" leftIcon="power_settings_new" @click='onClose'/>
+      <mu-menu-item title="退出" leftIcon="power_settings_new" @click='onClose' />
     </mu-menu>
 
-   
+
   </div>
 
 
@@ -41,19 +41,19 @@
   export default {
     data() {
       let themes = [
-          'light',
-          'dark',
-          'carbon',
-          'teal'
+        'light',
+        'dark',
+        'carbon',
+        'teal'
       ],
-      sub = []
-      for(let item of themes){
+        sub = []
+      for (let item of themes) {
         sub.push({
           name: item
         })
       }
       return {
-        menus:[
+        menus: [
           {
             name: '换肤',
             icon: 'remove_red_eye',
@@ -88,15 +88,15 @@
         this.cw = plus.webview.currentWebview()
         new Back(this.onHide).addKeyListener()
       },
-      onClick(){
+      onClick() {
         let url = 'login.html',
-        w = plus.webview.create(url,url)
-        this.cw.setStyle({left:'-70%'})
-        w.onloaded = () =>{
+          w = plus.webview.create(url, url)
+        this.cw.setStyle({ left: '-70%' })
+        w.onloaded = () => {
           this.onHide()
         }
-        w.show('pop-in',250)
-        
+        w.show('pop-in', 250)
+
       },
       onThemeClick() {
         this.index++
@@ -104,11 +104,17 @@
       onHide() {
         new Broadcast().send('_hideMenu', {}, { ids: ['index.html'] })
       },
-      onClose(){
+      onClose() {
         plus.runtime.quit()
       },
-      onSetting(){
-        
+      onSetting() {
+        let page = 'robot.html',
+          w = plus.webview.create(url, url, {
+            popGesture: 'close'
+          })
+        w.addEventListener('titleUpdate', () => {
+          w.show('pop-in', 250)
+        })
       }
     },
     watch: {
@@ -125,7 +131,7 @@
 </script>
 
 <style lang="css">
-  .header{
+  .header {
     padding: 10px 0;
   }
 </style>
