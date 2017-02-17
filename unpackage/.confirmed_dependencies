@@ -1,0 +1,29 @@
+{
+  "dist/module/login.html": {
+    "resources": [
+      "dist/static/img/logo.png",
+      "dist/static/js/module/login.73876b38b21943121895.js",
+      "dist/static/css/module/login.54bf7bf6c4586243d26eb09f3c9b9ad1.css"
+    ],
+    "refer": [
+      "dist/module/regist.html"
+    ]
+  },
+  "dist/module/lauch.html": {
+    "resources": [
+      "dist/static/js/vendor.bb6ae2c1b7df8950423e.js",
+      "dist/static/js/manifest.345ec7a00c2a8af4d5f0.js",
+      "dist/static/css/module/lauch.6e3bff41b47a35ff03f3423597703c01.css",
+      "dist/static/js/module/lauch.a2889c344e32f5ffae39.js"
+    ],
+    "refer": [
+      "dist/module/login.html"
+    ]
+  },
+  "dist/module/regist.html": {
+    "resources": [
+      "dist/static/js/module/regist.fcf12d8b963bf42da32d.js",
+      "dist/static/css/module/regist.0d6bf2cf2e88d74875ff14722283acdf.css"
+    ]
+  }
+}
