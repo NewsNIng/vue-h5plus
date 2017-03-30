@@ -37,11 +37,8 @@ class BroadCast{
 
     //定义监听事件
     listen(name, fun){
-        if(!_names.get(this)){
-            document.addEventListener(name, fun)
-            _names.set(this, name)
-        }
-        
+        document.addEventListener(name, fun)
+        return this
     }
 
     _getViews(){

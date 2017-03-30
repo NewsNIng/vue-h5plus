@@ -1,7 +1,7 @@
 <template>
   <div>
-    <mu-appbar title="侧滑菜单">
-    </mu-appbar>
+    <!--<mu-appbar title="侧滑菜单">
+    </mu-appbar>--> 
 
     <mu-card>
       <!--<mu-card-header :title="u.name" :subTitle="u.think">
@@ -108,7 +108,7 @@
         plus.runtime.quit()
       },
       onSetting() {
-        let page = 'robot.html',
+        let url = 'robot.html',
           w = plus.webview.create(url, url, {
             popGesture: 'close'
           })

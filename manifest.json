@@ -218,10 +218,14 @@
 					"dist/static/js/vendor.bb6ae2c1b7df8950423e.js",
 					"dist/static/js/manifest.345ec7a00c2a8af4d5f0.js",
 					"dist/static/css/module/lauch.6e3bff41b47a35ff03f3423597703c01.css",
-					"dist/static/js/module/lauch.a2889c344e32f5ffae39.js"
+					"dist/static/js/module/lauch.a2889c344e32f5ffae39.js",
+					"dist/static/js/vendor.35b14f54c70b7b4cbe09.js",
+					"dist/static/js/module/lauch.9e17d47c88b21fd78933.js",
+					"dist/static/js/manifest.776279ed85703ed1cd9f.js"
 				],
 				"refer": [
-					"dist/module/login.html"
+					"dist/module/login.html",
+					"dist/module/index.html"
 				],
 				"priority": 0
 			},
@@ -232,12 +236,75 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"dist/module/home.html": {
+				"resources": [
+					"dist/static/css/module/home.04d903eb8865960334ae66a04d212c53.css",
+					"dist/static/js/module/home.884a9e0239f01377341a.js"
+				],
+				"refer": [
+					"dist/module/bowser.html"
+				],
+				"priority": 0
+			},
+			"dist/module/menu.html": {
+				"resources": [
+					"dist/static/css/module/menu.1901f32afd0cc99ab37ffc39ffc00fc3.css",
+					"dist/static/js/vendor.35b14f54c70b7b4cbe09.js",
+					"dist/static/js/module/menu.e4839e39398244df2427.js",
+					"dist/static/js/manifest.776279ed85703ed1cd9f.js"
+				],
+				"refer": [
+					"dist/module/robot.html"
+				],
+				"priority": 0
+			},
+			"dist/module/index.html": {
+				"resources": [
+					"dist/module/home.html",
+					"dist/static/css/module/index.81a0fd9d418817694b7c9c5e1ef11339.css",
+					"dist/static/js/module/index.19dbead86894cbc4ff61.js"
+				],
+				"refer": [
+					"dist/module/menu.html",
+					"dist/module/music.html"
+				],
+				"priority": 0
+			},
+			"dist/module/bowser.html": {
+				"resources": [
+					"dist/static/css/module/bowser.672011cde737b40e824c00a8f7d91d0d.css",
+					"dist/static/js/vendor.35b14f54c70b7b4cbe09.js",
+					"dist/static/js/manifest.776279ed85703ed1cd9f.js",
+					"dist/static/js/module/bowser.1fe83711bfda9eb3941b.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"dist/module/music.html": {
+				"resources": [
+					"dist/static/js/vendor.35b14f54c70b7b4cbe09.js",
+					"dist/static/js/module/music.88bf9ab6425bff18d3a4.js",
+					"dist/static/js/manifest.776279ed85703ed1cd9f.js",
+					"dist/static/css/module/music.6e3bff41b47a35ff03f3423597703c01.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"dist/module/robot.html": {
+				"resources": [
+					"dist/static/js/vendor.35b14f54c70b7b4cbe09.js",
+					"dist/static/js/module/robot.0b2fb3e5077752a9f9bd.js",
+					"dist/static/js/manifest.776279ed85703ed1cd9f.js",
+					"dist/static/css/module/robot.0d716abbc1a6e89dde62c71c8a903b6a.css"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
 			"resources": [
 				"src/common/js/App/Robot.js",
-				"dist/static/css/module/bowser.672011cde737b40e824c00a8f7d91d0d.css",
 				"src/module/bowser/App.vue",
 				"dist/static/css/module/regist.0d6bf2cf2e88d74875ff14722283acdf.css.map",
 				"src/module/robot/App.vue",
@@ -273,19 +340,14 @@
 				"src/common/js/ning/WebviewGroup.js",
 				"other/1.jpg",
 				"dist/static/js/module/home.b7fd6968fdb102453770.js.map",
-				"dist/module/home.html",
 				"src/module/lauch/lauch.html",
 				"dist/static/js/module/bowser.b3b4e7a80b424a06ac8f.js.map",
 				"dist/static/js/module/robot.58e472df8fbea7ac2ecd.js.map",
-				"dist/module/index.html",
-				"dist/module/robot.html",
 				"dist/static/js/manifest.345ec7a00c2a8af4d5f0.js.map",
 				"dist/static/js/vendor.bb6ae2c1b7df8950423e.js.map",
 				"dist/module/demo.html",
-				"dist/module/bowser.html",
 				"dist/static/css/module/box.6e3bff41b47a35ff03f3423597703c01.css",
 				"other/liu.png",
-				"dist/static/css/module/home.04d903eb8865960334ae66a04d212c53.css",
 				"src/common/js/ning/ready.js",
 				"dist/static/js/module/menu.d1145d995b65a265ed20.js",
 				"config/prod.env.js",
@@ -304,8 +366,6 @@
 				"src/common/js/ning/index.js",
 				"src/module/bowser/bowser.js",
 				"dist/static/js/module/bowser.b3b4e7a80b424a06ac8f.js",
-				"dist/static/css/module/menu.1901f32afd0cc99ab37ffc39ffc00fc3.css",
-				"dist/module/menu.html",
 				"dist/static/css/module/person.6e3bff41b47a35ff03f3423597703c01.css.map",
 				"other/2.jpg",
 				"LICENSE",
@@ -324,7 +384,6 @@
 				"dist/static/css/module/box.6e3bff41b47a35ff03f3423597703c01.css.map",
 				"dist/static/css/module/robot.0d716abbc1a6e89dde62c71c8a903b6a.css.map",
 				"src/module/bowser/bowser.html",
-				"dist/static/css/module/index.81a0fd9d418817694b7c9c5e1ef11339.css",
 				"src/module/music/App.vue",
 				"src/common/js/ning/plusReady.js",
 				"src/module/robot/robot.js",
@@ -346,7 +405,6 @@
 				"src/module/music_play/music_play.js",
 				"src/common/js/App/DJYE.js",
 				"dist/static/js/module/regist.fcf12d8b963bf42da32d.js.map",
-				"dist/static/css/module/robot.0d716abbc1a6e89dde62c71c8a903b6a.css",
 				"build/build.js",
 				"src/common/js/data/noBacks.js",
 				"src/module/person/person.html",
