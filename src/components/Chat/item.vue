@@ -12,7 +12,7 @@
         <mu-avatar v-if='self' :src="avatar" class="avatar" />
       </mu-flexbox-item>
     </mu-flexbox>
-    </h5>
+    </div>
 </template>
 <script>
   import 'common/js/ning/itool.js'
